@@ -16,9 +16,7 @@ public class TravProf implements Serializable {
         this.paymentType = paymentType;
     }
 
-    public String gettravAgentID() {
-        return travAgentID;
-    }
+    public String gettravAgentID() { return travAgentID; }
 
     public String getFirstName() {
         return firstName;
