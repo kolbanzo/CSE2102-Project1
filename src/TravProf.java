@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public class TravProf implements Serializable {
-    String travAgentID, firstName, lastName, address, phone, travelType, paymentType;
+    private String travAgentID, firstName, lastName, address, phone, travelType, paymentType;
     float tripCost;
     //MedCond medCondInfo;
     public TravProf(String travAgentID, String firstName, String lastName, String address, String phone,
