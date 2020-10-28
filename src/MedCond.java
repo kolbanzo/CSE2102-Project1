@@ -2,7 +2,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class MedCond {
-    private String mdContact, mdPhone, algType, illType;
+    public String mdContact, mdPhone, algType, illType;
     public MedCond(String contact, String phone, String alg, String ill){
         this.mdContact = contact;
         this.mdPhone = phone;
