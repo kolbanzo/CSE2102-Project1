@@ -2,10 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TravProfInterface { //Should we handle multiple profiles with the same last name and the same trav agent ID?
-    ArrayList<TravProf> travProfs; //Ex: for findTravProf(), which profile should we display for family
     String dbName;
+    TravProfDB db = new TravProfDB("file");
     public TravProfInterface(String fileName){
-        travProfs = new ArrayList<TravProf>();
         dbName = fileName;
     }
 
@@ -20,6 +19,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Payment Type: " + travProf.getPaymentType());
         System.out.println("Medical Condition Info: " + travProf.getMedCondInfo());
         System.out.println();
+
     }
 
     MedCond createNewMedCond(){
@@ -112,7 +112,8 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         medCondInfo = createNewMedCond();
 
         TravProf newTravProf = new TravProf(travAgentID, firstName, lastName, address, phone, tripCost, travelType, paymentType, medCondInfo);
-        travProfs.add(newTravProf);
+        db.insertNewProfile(newTravProf);
+        //travProfs.add(newTravProf);
     }
 
     void deleteTravProf(){ //What if no profile on record with provided last name?
@@ -124,12 +125,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter Travel Agent ID:");
         String travAgentID = deleteScanner.nextLine();
 
-        for(int i = 0; i < travProfs.size(); i++){
-            TravProf tempProf = travProfs.get(i);
-            if(tempProf.getLastName().equals(lastName) && tempProf.gettravAgentID().equals(travAgentID)){
-                travProfs.remove(tempProf);
-            }
-        }
+        db.deleteProfile(lastName, travAgentID);
 
     }
 
@@ -142,12 +138,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter Travel Agent ID:");
         String travAgentID = findScanner.nextLine();
 
-        for(int i = 0; i < travProfs.size(); i++){
-            TravProf tempProf = travProfs.get(i);
-            if(tempProf.getLastName().equals(lastName) && tempProf.gettravAgentID().equals(travAgentID)){
-                displayTravProf(tempProf);
-            }
-        }
+        db.findProfile(travAgentID, lastName);
     }
 
     void updateTravProf(){ //How do we determine which profile they want to modify? By last name?
@@ -158,8 +149,8 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter last name of profile");
         String lastName = updateScanner.nextLine();
 
-        for(int i = 0; i < travProfs.size(); i++){
-            TravProf tempProf = travProfs.get(i);
+        for(int i = 0; i < db.travelerList.size(); i++){
+            TravProf tempProf = db.travelerList.get(i);
             if(tempProf.getLastName().equals(lastName)){
                 modifyProf = tempProf;
             }
@@ -188,8 +179,8 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
     }
 
     void displayAllTravelProfiles(){
-        for(int i = 0; i < travProfs.size(); i++){
-            TravProf tempProf = travProfs.get(i);
+        for(int i = 0; i < db.travelerList.size(); i++){
+            TravProf tempProf = db.travelerList.get(i);
             displayTravProf(tempProf);
         }
     }
