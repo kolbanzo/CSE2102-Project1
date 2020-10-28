@@ -17,7 +17,11 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Cost of Trip: " + travProf.getTripCost());
         System.out.println("Travel Type: " + travProf.getTravelType());
         System.out.println("Payment Type: " + travProf.getPaymentType());
-        System.out.println("Medical Condition Info: " + travProf.getMedCondInfo());
+        System.out.println("Medical Condition Info: ");
+        System.out.println("MD Contact: " + travProf.getMedCondInfo().getMdContact());
+        System.out.println("MD Phone: " + travProf.getMedCondInfo().getMdPhone());
+        System.out.println("Allergy Type: " + travProf.getMedCondInfo().getAlgType());
+        System.out.println("Illness Type: " + travProf.getMedCondInfo().getIllType());
         System.out.println();
 
     }
