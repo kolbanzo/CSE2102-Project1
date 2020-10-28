@@ -18,7 +18,67 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Cost of Trip: " + travProf.getTripCost());
         System.out.println("Travel Type: " + travProf.getTravelType());
         System.out.println("Payment Type: " + travProf.getPaymentType());
+        System.out.println("Medical Condition Info: " + travProf.getMedCondInfo());
         System.out.println();
+    }
+
+    MedCond createNewMedCond(){
+        Scanner medScanner = new Scanner(System.in);
+
+        System.out.println("Enter Name of MD Contact:");
+        String mdContact = medScanner.nextLine();
+
+        System.out.println("Enter Phone Number of MD Contact:");
+        String mdPhone = medScanner.nextLine();
+
+        String algType = "";
+        System.out.println("Select Allergy: "); //Menu with number selection?
+        System.out.println("(1) None");
+        System.out.println("(2) Food");
+        System.out.println("(3) Medication");
+        System.out.println("(4) Other");
+        String algTypeScan = medScanner.nextLine();
+        int int_input = Integer.parseInt(algTypeScan);
+        if(int_input == 1){
+            algType = "None";
+        }
+        if(int_input == 2){
+            algType = "Food";
+        }
+        if(int_input == 3){
+            algType = "Medication";
+        }
+        if(int_input == 4){
+            algType = "Other";
+        }
+
+        String illType = "";
+        System.out.println("Select Allergy: "); //Menu with number selection?
+        System.out.println("(1) None");
+        System.out.println("(2) Heart");
+        System.out.println("(3) Diabetes");
+        System.out.println("(4) Asthma");
+        System.out.println("(5) Other");
+        String illTypeScan = medScanner.nextLine();
+        int int_input2 = Integer.parseInt(illTypeScan);
+        if(int_input2 == 1){
+            illType = "None";
+        }
+        if(int_input2 == 2){
+            illType = "Heart";
+        }
+        if(int_input2 == 3){
+            illType = "Diabetes";
+        }
+        if(int_input2 == 4){
+            illType = "Asthma";
+        }
+        if(int_input2 == 5){
+            illType = "Other";
+        }
+
+        MedCond medCondInfo = new MedCond(mdContact, mdPhone, algType, illType);
+        return medCondInfo;
     }
 
     void createNewTravProf(){
@@ -48,7 +108,10 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter Payment Type:");
         String paymentType = profScanner.nextLine();
 
-        TravProf newTravProf = new TravProf(travAgentID, firstName, lastName, address, phone, tripCost, travelType, paymentType);
+        MedCond medCondInfo;
+        medCondInfo = createNewMedCond();
+
+        TravProf newTravProf = new TravProf(travAgentID, firstName, lastName, address, phone, tripCost, travelType, paymentType, medCondInfo);
         travProfs.add(newTravProf);
     }
 
@@ -90,7 +153,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
     void updateTravProf(){ //How do we determine which profile they want to modify? By last name?
         Scanner updateScanner = new Scanner(System.in);
         TravProf modifyProf = new TravProf(null, null, null, null, null,
-                0, null, null);
+                0, null, null, null);
 
         System.out.println("Enter last name of profile");
         String lastName = updateScanner.nextLine();
