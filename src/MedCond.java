@@ -8,7 +8,6 @@ public class MedCond {
         this.mdPhone = phone;
         this.algType = alg;
         this.illType = ill;
-
     }
     public String getMdContact(){return mdContact;}
     public String getMdPhone(){return mdPhone;}

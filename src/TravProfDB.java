@@ -8,14 +8,14 @@ public class TravProfDB {
     private int numTravelers; //how many travelers are in DB
     private int openTravelerIndex; //gives position in travelerList of next open spot
     private String fileName; //name of DB
-    private ArrayList travelerList; //array of all profiles in DB
+    private ArrayList<TravProf> travelerList; //array of all profiles in DB
     private int currentTravelerIndex; //used as an iterator
 
     //constructor
     public TravProfDB(String fileName) {
         this.fileName = fileName;
         this.numTravelers = 0;
-        this.travelerList = new ArrayList();
+        this.travelerList = new ArrayList<TravProf>();
         this.openTravelerIndex = 0;
         this.currentTravelerIndex = 0;
     }
@@ -31,7 +31,7 @@ public class TravProfDB {
         boolean successfulDeletion = false;
         //find a profile with provided information
         for (int i = 0; i < this.travelerList.size(); i++) {
-            TravProf deleteCandidate = (TravProf) this.travelerList.get(i);
+            TravProf deleteCandidate = this.travelerList.get(i);
             if (deleteCandidate.gettravAgentID().equals(travID) && deleteCandidate.getLastName().equals(lastName)) {
                 this.travelerList.remove(i);
                 successfulDeletion = true;
@@ -44,7 +44,7 @@ public class TravProfDB {
     private TravProf findProfile(String travID, String lastName){
         int j = 0;
         for(int i=0; i<this.openTravelerIndex;i++){
-            TravProf searchCandidate  = (TravProf) this.travelerList.get(i);
+            TravProf searchCandidate  = this.travelerList.get(i);
             if(searchCandidate.gettravAgentID().equals(travID) && searchCandidate.getLastName().equals(lastName)){
                 j=i;
                 break;
