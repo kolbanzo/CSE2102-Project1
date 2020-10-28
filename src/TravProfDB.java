@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class TravProfDB {
 
     private int numTravelers; //how many travelers are in DB
@@ -77,9 +81,26 @@ public class TravProfDB {
         return nextProf;
     }
 
-    private void writeAllTravProf(String fileName){
+    private FileWriter writeAllTravProf(String fileName) throws IOException {
         //needs to output a file with name fileName that has all traveler profiles
         //in the travelerList
+        FileWriter dbFile = new FileWriter(fileName);
+        for (int i = 0; i<this.openTravelerIndex; i++){
+            TravProf currentTrav = this.travelerList[i];
+            dbFile.write("traveler ID: "+ currentTrav.gettravAgentID());
+            dbFile.write("traveler Name: "+ currentTrav.getFirstName()+currentTrav.getLastName());
+            dbFile.write("traveler Address: "+ currentTrav.getAddress());
+            dbFile.write("traveler Phone: "+ currentTrav.getPhone());
+            dbFile.write("traveler's Allergies: " + currentTrav.getMedCondInfo().getAlgType());
+            dbFile.write("traveler's Illness: " + currentTrav.getMedCondInfo().getIllType());
+            dbFile.write("traveler's Medical Contact: " + currentTrav.getMedCondInfo().getMdContact());
+            dbFile.write("traveler's Medical Phone: "+ currentTrav.getMedCondInfo().getMdPhone() );
+            dbFile.write("travel Type: "+ currentTrav.getTravelType());
+            dbFile.write("trip Cost: " + Float.toString(currentTrav.getTripCost()));
+            dbFile.write("payment Type: "+ currentTrav.getPaymentType());
+            dbFile.write("----------------------------------");
+        }
+    return dbFile;
     }
 
     private void initializeDataBase(String dbName){
