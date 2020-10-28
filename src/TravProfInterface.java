@@ -57,7 +57,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         }
 
         String illType = "";
-        System.out.println("Select Allergy: "); //Menu with number selection?
+        System.out.println("Select Illness: "); //Menu with number selection?
         System.out.println("(1) None");
         System.out.println("(2) Heart");
         System.out.println("(3) Diabetes");
