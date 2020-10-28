@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class TravProfDB {
 
-    private int numTravelers; //how many travelers are in DB
-    private int openTravelerIndex; //gives position in travelerList of next open spot
-    private String fileName; //name of DB
-    private ArrayList<TravProf> travelerList; //array of all profiles in DB
-    private int currentTravelerIndex; //used as an iterator
+    public int numTravelers; //how many travelers are in DB
+    public int openTravelerIndex; //gives position in travelerList of next open spot
+    public String fileName; //name of DB
+    public ArrayList<TravProf> travelerList; //array of all profiles in DB
+    public int currentTravelerIndex; //used as an iterator
 
     //constructor
     public TravProfDB(String fileName) {
