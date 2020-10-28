@@ -21,13 +21,13 @@ public class TravProfDB {
     }
 
     //Insert new profile accepts a TravProf as input and inserts it into the travelerList
-    private void insertNewProfile(TravProf profile) {
+    public void insertNewProfile(TravProf profile) {
             this.travelerList.add(profile);
         this.numTravelers++;
     }
 
     //delete profile removes a profile from travelerList and tells us if it worked (boolean)
-    private boolean deleteProfile(String travID, String lastName) {
+    public boolean deleteProfile(String travID, String lastName) {
         boolean successfulDeletion = false;
         //find a profile with provided information
         for (int i = 0; i < this.travelerList.size(); i++) {
@@ -41,7 +41,7 @@ public class TravProfDB {
     }
 
     //findProfile will search for an ID and last name and return a profile
-    private TravProf findProfile(String travID, String lastName){
+    public TravProf findProfile(String travID, String lastName){
         int j = 0;
         for(int i=0; i<this.openTravelerIndex;i++){
             TravProf searchCandidate  = this.travelerList.get(i);
@@ -54,19 +54,19 @@ public class TravProfDB {
     }
 
     //findFirstProfile
-    private TravProf findFirstProfile(){
+    public TravProf findFirstProfile(){
         //this.currentTravelerIndex = 0;
         return (TravProf) this.travelerList.get(0);
     }
 
     //findNextProfile
-    private TravProf findNextProfile(){
+    public TravProf findNextProfile(){
         TravProf nextProf = (TravProf) this.travelerList.get(this.currentTravelerIndex);
         currentTravelerIndex++;
         return nextProf;
     }
 
-    private FileWriter writeAllTravProf(String fileName) throws IOException {
+    public FileWriter writeAllTravProf(String fileName) throws IOException {
         //needs to output a file with name fileName that has all traveler profiles
         //in the travelerList
         FileWriter dbFile = new FileWriter(fileName);
@@ -88,7 +88,7 @@ public class TravProfDB {
     return dbFile;
     }
 
-    private void initializeDataBase(String dbName){
+    public void initializeDataBase(String dbName){
         //read in existing traveler profiles placed in file
     }
 }
