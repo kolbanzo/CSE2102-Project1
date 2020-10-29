@@ -1,9 +1,13 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TravProfInterface { //Should we handle multiple profiles with the same last name and the same trav agent ID?
     String dbName;
-    TravProfDB db = new TravProfDB("file");
+    TravProfDB db = new TravProfDB("dbFile");
     public TravProfInterface(String fileName){
         dbName = fileName;
     }
@@ -135,7 +139,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         db.insertNewProfile(newTravProf);
     }
 
-    void deleteTravProf(){ //What if no profile on record with provided last name?
+    void deleteTravProf(){
         Scanner deleteScanner = new Scanner(System.in);
 
         System.out.println("Enter last name of profile");
@@ -205,7 +209,19 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         }
     }
 
-    public boolean getUserChoice(){
+    void writeToDB() throws IOException {
+        db.writeAllTravProf(db.fileName); //Write all profiles in arraylist to db file
+        for(int i = 0; i < db.travelerList.size(); i++){ //Go through all profiles in arraylist and delete
+            TravProf deleteProf = db.travelerList.get(i);
+            db.deleteProfile(deleteProf.gettravAgentID(), deleteProf.getLastName());
+        }
+    }
+
+    void initDB() throws IOException, ClassNotFoundException {
+        db.initializeDataBase(db.fileName);
+    }
+
+    public boolean getUserChoice() throws IOException, ClassNotFoundException {
         Scanner scan = new Scanner(System.in);
         int input;
         do {
@@ -246,11 +262,11 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             return true;
         }
         if(input == 6){
-            System.out.println("call writeToDB");
+            writeToDB();
             return true;
         }
         if(input == 7){
-            System.out.println("call initDB");
+            initDB();
             return true;
         }
         if(input == 8){
@@ -261,7 +277,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         return true;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         boolean state = true;
         TravProfInterface db = new TravProfInterface("test");
         while(state){
