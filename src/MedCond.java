@@ -12,7 +12,7 @@ public class MedCond {
     public String getMdContact(){return mdContact;}
     public String getMdPhone(){return mdPhone;}
     public String getAlgType(){return algType;}
-    public String getIllType(){return algType;}
+    public String getIllType(){return illType;}
     public void updateMdContact(String newContact){mdContact = newContact;}
     public void updateMdPhone(String newPhone){mdPhone = newPhone;}
     public void updateAlgType(String newAlg){algType = newAlg;}
