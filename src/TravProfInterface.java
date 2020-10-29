@@ -23,7 +23,6 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Allergy Type: " + travProf.getMedCondInfo().getAlgType());
         System.out.println("Illness Type: " + travProf.getMedCondInfo().getIllType());
         System.out.println();
-
     }
 
     MedCond createNewMedCond(){
@@ -36,48 +35,65 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         String mdPhone = medScanner.nextLine();
 
         String algType = "";
-        System.out.println("Select Allergy: "); //Menu with number selection?
-        System.out.println("(1) None");
-        System.out.println("(2) Food");
-        System.out.println("(3) Medication");
-        System.out.println("(4) Other");
-        String algTypeScan = medScanner.nextLine();
-        int int_input = Integer.parseInt(algTypeScan);
-        if(int_input == 1){
+        int input;
+        do {
+            System.out.println("Select Allergy: "); //Menu with number selection?
+            System.out.println("(1) None");
+            System.out.println("(2) Food");
+            System.out.println("(3) Medication");
+            System.out.println("(4) Other");
+            try {
+                input = Integer.parseInt(medScanner.nextLine());
+                break;
+            } catch (Exception e) {
+                System.out.println("Please enter a valid value.");
+                continue;
+            }
+        } while (true);
+
+        if(input == 1){
             algType = "None";
         }
-        if(int_input == 2){
+        if(input == 2){
             algType = "Food";
         }
-        if(int_input == 3){
+        if(input == 3){
             algType = "Medication";
         }
-        if(int_input == 4){
+        if(input == 4){
             algType = "Other";
         }
 
+        int input2;
+        do {
+            System.out.println("Select Illness: "); //Menu with number selection?
+            System.out.println("(1) None");
+            System.out.println("(2) Heart");
+            System.out.println("(3) Diabetes");
+            System.out.println("(4) Asthma");
+            System.out.println("(5) Other");
+            try {
+                input2 = Integer.parseInt(medScanner.nextLine());
+                break;
+            } catch (Exception e) {
+                System.out.println("Please enter a valid value.");
+                continue;
+            }
+        } while (true);
         String illType = "";
-        System.out.println("Select Illness: "); //Menu with number selection?
-        System.out.println("(1) None");
-        System.out.println("(2) Heart");
-        System.out.println("(3) Diabetes");
-        System.out.println("(4) Asthma");
-        System.out.println("(5) Other");
-        String illTypeScan = medScanner.nextLine();
-        int int_input2 = Integer.parseInt(illTypeScan);
-        if(int_input2 == 1){
+        if(input2 == 1){
             illType = "None";
         }
-        if(int_input2 == 2){
+        if(input2 == 2){
             illType = "Heart";
         }
-        if(int_input2 == 3){
+        if(input2 == 3){
             illType = "Diabetes";
         }
-        if(int_input2 == 4){
+        if(input2 == 4){
             illType = "Asthma";
         }
-        if(int_input2 == 5){
+        if(input2 == 5){
             illType = "Other";
         }
 
@@ -117,7 +133,6 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
 
         TravProf newTravProf = new TravProf(travAgentID, firstName, lastName, address, phone, tripCost, travelType, paymentType, medCondInfo);
         db.insertNewProfile(newTravProf);
-        //travProfs.add(newTravProf);
     }
 
     void deleteTravProf(){ //What if no profile on record with provided last name?
@@ -171,13 +186,14 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("(8) Illness Type");
         System.out.println("(9) Allergy Type");
         Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
-        int int_input = Integer.parseInt(input); //Implement error handling for non-integer inputs?
-
+        int input = 0;
+        if(scan.hasNextInt()) {
+            input = scan.nextInt();
+        }
         System.out.println("Enter updated value");
         String updatedValue = updateScanner.nextLine();
 
-        if(int_input == 1){
+        if(input == 1){
             modifyProf.updateAddress(updatedValue);
         }
     }
@@ -190,47 +206,54 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
     }
 
     public boolean getUserChoice(){
-        System.out.println("(1) Create a new travel profile");
-        System.out.println("(2) Delete a travel profile");
-        System.out.println("(3) Find a travel profile");
-        System.out.println("(4) Modify a travel profile");
-        System.out.println("(5) Display all travel profiles");
-        System.out.println("(6) Write to database");
-        System.out.println("(7) Initialize database");
-        System.out.println("(8) Exit");
         Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
-        int int_input = Integer.parseInt(input); //Implement error handling for non-integer inputs?
-
-        if(int_input == 1){
+        int input;
+        do {
+            System.out.println("(1) Create a new travel profile");
+            System.out.println("(2) Delete a travel profile");
+            System.out.println("(3) Find a travel profile");
+            System.out.println("(4) Modify a travel profile");
+            System.out.println("(5) Display all travel profiles");
+            System.out.println("(6) Write to database");
+            System.out.println("(7) Initialize database");
+            System.out.println("(8) Exit");
+            try {
+                input = Integer.parseInt(scan.nextLine());
+                break;
+            } catch (Exception e) {
+                System.out.println("Please enter a valid value.");
+                continue;
+            }
+        } while (true);
+        if(input == 1){
             createNewTravProf();
             return true;
         }
-        if(int_input == 2){
+        if(input == 2){
             deleteTravProf();
             return true;
         }
-        if(int_input == 3){
+        if(input == 3){
             findTravProf();
             return true;
         }
-        if(int_input == 4){
+        if(input == 4){
             updateTravProf();
             return true;
         }
-        if(int_input == 5){
+        if(input == 5){
             displayAllTravelProfiles();
             return true;
         }
-        if(int_input == 6){
+        if(input == 6){
             System.out.println("call writeToDB");
             return true;
         }
-        if(int_input == 7){
+        if(input == 7){
             System.out.println("call initDB");
             return true;
         }
-        if(int_input == 8){
+        if(input == 8){
             System.out.println("Exiting");
             return false;
         }
