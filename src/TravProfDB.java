@@ -33,8 +33,8 @@ public class TravProfDB implements Serializable{
             if (deleteCandidate.gettravAgentID().equals(travID) && deleteCandidate.getLastName().equals(lastName)) {
                 this.travelerList.remove(i);
                 successfulDeletion = true;
-                }
             }
+        }
         return successfulDeletion;
     }
 

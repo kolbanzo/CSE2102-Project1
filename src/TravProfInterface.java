@@ -211,10 +211,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
 
     void writeToDB() throws IOException {
         db.writeAllTravProf(db.fileName); //Write all profiles in arraylist to db file
-        for(int i = 0; i < db.travelerList.size(); i++){ //Go through all profiles in arraylist and delete
-            TravProf deleteProf = db.travelerList.get(i);
-            db.deleteProfile(deleteProf.gettravAgentID(), deleteProf.getLastName());
-        }
+        db.travelerList.removeAll(db.travelerList);
     }
 
     void initDB() throws IOException, ClassNotFoundException {
