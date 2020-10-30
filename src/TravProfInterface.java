@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class TravProfInterface { //Should we handle multiple profiles with the same last name and the same trav agent ID?
     String dbName;
     TravProfDB db = new TravProfDB("dbFile");
+    private String travAgentID;
 
     public TravProfInterface(String fileName){
         dbName = fileName;
@@ -105,9 +106,6 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
     void createNewTravProf(){
         Scanner profScanner = new Scanner(System.in);
 
-        System.out.println("Enter Travel Agent ID:");
-        String travAgentID = profScanner.nextLine();
-
         System.out.println("Enter Traveler's First Name:");
         String firstName = profScanner.nextLine();
 
@@ -144,9 +142,6 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter last name of profile");
         String lastName = deleteScanner.nextLine();
 
-        System.out.println("Enter Travel Agent ID:");
-        String travAgentID = deleteScanner.nextLine();
-
         db.deleteProfile(lastName, travAgentID);
         System.out.println("------------------------------------");
     }
@@ -157,19 +152,15 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter last name of profile");
         String lastName = findScanner.nextLine();
 
-        System.out.println("Enter Travel Agent ID:");
-        String travAgentID = findScanner.nextLine();
-
         db.findProfile(travAgentID, lastName);
         System.out.println("------------------------------------");
     }
 
-    void updateTravProf(){ //How do we determine which profile they want to modify? By last name?
+    void updateTravProf(){
         Scanner updateScanner = new Scanner(System.in);
-        TravProf modifyProf = new TravProf(null, null, null, null, null,
-                0, null, null, null);
+        TravProf modifyProf = null;
 
-        System.out.println("Enter last name of profile");
+        System.out.println("Enter last name of the profile you want to modify");
         String lastName = updateScanner.nextLine();
 
         for(int i = 0; i < db.travelerList.size(); i++){
@@ -270,6 +261,12 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             }
         } while (true);
         System.out.println("------------------------------------");
+        if(input == 8){
+            System.out.println("Exiting");
+            return false;
+        }
+        System.out.println("Enter Travel Agent ID:");
+        travAgentID = scan.nextLine();
         if(input == 1){
             createNewTravProf();
             return true;
@@ -297,10 +294,6 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         if(input == 7){
             initDB();
             return true;
-        }
-        if(input == 8){
-            System.out.println("Exiting");
-            return false;
         }
         System.out.println("The option you selected was invalid, please choose from the following list:");
         return true;
