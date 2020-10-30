@@ -3,14 +3,14 @@ import java.util.Scanner;
 
 public class TravProfInterface { //Should we handle multiple profiles with the same last name and the same trav agent ID?
     String dbName;
-    TravProfDB db = new TravProfDB("dbFile");
-    private String travAgentID;
+    TravProfDB db = new TravProfDB("dbFile"); //Create TravProfDB object for writing/initializing
+    private String travAgentID; //trav agent ID stored here after menu selection
 
     public TravProfInterface(String fileName){
         dbName = fileName;
     }
 
-    void displayTravProf(TravProf travProf){
+    void displayTravProf(TravProf travProf){ //Print all info in a Trav Prof
         System.out.println("Travel Agent ID: " + travProf.gettravAgentID());
         System.out.println("Traveler's First Name: " + travProf.getFirstName());
         System.out.println("Traveler's Last Name: " + travProf.getLastName());
@@ -27,7 +27,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("------------------------------------");
     }
 
-    MedCond createNewMedCond(){
+    MedCond createNewMedCond(){ //Prompt user to enter information needed for med cond
         Scanner medScanner = new Scanner(System.in);
 
         System.out.println("Enter Name of MD Contact:");
@@ -38,8 +38,8 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
 
         String algType = "";
         int input;
-        do {
-            System.out.println("Select Allergy: "); //Menu with number selection?
+        do { //make sure input is an integer
+            System.out.println("Select Allergy: ");
             System.out.println("(1) None");
             System.out.println("(2) Food");
             System.out.println("(3) Medication");
@@ -67,7 +67,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         }
 
         int input2;
-        do {
+        do { //make sure input is an integer
             System.out.println("Select Illness: "); //Menu with number selection?
             System.out.println("(1) None");
             System.out.println("(2) Heart");
@@ -99,11 +99,11 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             illType = "Other";
         }
 
-        MedCond medCondInfo = new MedCond(mdContact, mdPhone, algType, illType);
+        MedCond medCondInfo = new MedCond(mdContact, mdPhone, algType, illType); //Create med cond using user input
         return medCondInfo;
     }
 
-    void createNewTravProf(){
+    void createNewTravProf(){ //Prompt user to enter information needed for trav prof
         Scanner profScanner = new Scanner(System.in);
 
         System.out.println("Enter Traveler's First Name:");
@@ -128,15 +128,16 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         String paymentType = profScanner.nextLine();
 
         MedCond medCondInfo;
-        medCondInfo = createNewMedCond();
+        medCondInfo = createNewMedCond(); //Call create med cond function and store in MedCond object
 
         System.out.println("------------------------------------");
 
-        TravProf newTravProf = new TravProf(travAgentID, firstName, lastName, address, phone, tripCost, travelType, paymentType, medCondInfo);
-        db.insertNewProfile(newTravProf);
+        TravProf newTravProf = new TravProf(travAgentID, firstName, lastName, address, phone, tripCost, travelType,
+                paymentType, medCondInfo);
+        db.insertNewProfile(newTravProf); //Create new trav prof and store in arraylist
     }
 
-    void deleteTravProf(){
+    void deleteTravProf(){ //Delete a trav prof using last name and stored trav agent id
         Scanner deleteScanner = new Scanner(System.in);
 
         System.out.println("Enter last name of profile");
@@ -146,7 +147,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("------------------------------------");
     }
 
-    void findTravProf(){
+    void findTravProf(){ //Find a trav prof by last name
         Scanner findScanner = new Scanner(System.in);
 
         System.out.println("Enter last name of profile");
@@ -156,7 +157,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("------------------------------------");
     }
 
-    void updateTravProf(){
+    void updateTravProf(){ //Find a trav prof by last name and prompt user to choose which value to update
         Scanner updateScanner = new Scanner(System.in);
         TravProf modifyProf = null;
 
@@ -223,7 +224,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         }
     }
 
-    void displayAllTravelProfiles(){
+    void displayAllTravelProfiles(){ //Loop through array list and display each profile
         for(int i = 0; i < db.travelerList.size(); i++){
             TravProf tempProf = db.travelerList.get(i);
             displayTravProf(tempProf);
@@ -235,15 +236,16 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         db.travelerList.removeAll(db.travelerList);
     }
 
-    void initDB() throws IOException, ClassNotFoundException {
+    void initDB() throws IOException, ClassNotFoundException { //Retrieve all trav profs stored in DB file to arraylist
         db.initializeDataBase(db.fileName);
     }
 
-    public boolean getUserChoice() throws IOException, ClassNotFoundException {
+    //boolean returned to signal main when to stop looping.
+    public boolean getUserChoice() throws IOException, ClassNotFoundException { //prompt user to enter menu choice
         System.out.println("Select a menu option:");
         Scanner scan = new Scanner(System.in);
         int input;
-        do {
+        do { //make sure input is integer and matches is a valid menu option
             System.out.println("(1) Create a new travel profile");
             System.out.println("(2) Delete a travel profile");
             System.out.println("(3) Find a travel profile");
@@ -261,11 +263,11 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             }
         } while (true);
         System.out.println("------------------------------------");
-        if(input == 8){
+        if(input == 8){ //If exit, do so before asking for travel agent id
             System.out.println("Exiting");
             return false;
         }
-        System.out.println("Enter Travel Agent ID:");
+        System.out.println("Enter Travel Agent ID:"); //travel agent id required after every menu selection
         travAgentID = scan.nextLine();
         if(input == 1){
             createNewTravProf();
@@ -295,6 +297,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             initDB();
             return true;
         }
+        //if control reaches here, entered value is not valid. Print this and return true to loop again.
         System.out.println("The option you selected was invalid, please choose from the following list:");
         return true;
     }
@@ -302,7 +305,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         boolean state = true;
         TravProfInterface db = new TravProfInterface("test");
-        while(state){
+        while(state){ //While getUserChoice() returns true, loop
             state = db.getUserChoice();
         }
     }
