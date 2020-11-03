@@ -6,11 +6,11 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
     TravProfDB db = new TravProfDB("dbFile"); //Create TravProfDB object for writing/initializing
     private String travAgentID; //trav agent ID stored here after menu selection
 
-    public TravProfInterface(String fileName){
+    public TravProfInterface(String fileName) {
         dbName = fileName;
     }
 
-    void displayTravProf(TravProf travProf){ //Print all info in a Trav Prof
+    void displayTravProf(TravProf travProf) { //Print all info in a Trav Prof
         System.out.println("Travel Agent ID: " + travProf.gettravAgentID());
         System.out.println("Traveler's First Name: " + travProf.getFirstName());
         System.out.println("Traveler's Last Name: " + travProf.getLastName());
@@ -27,7 +27,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("------------------------------------");
     }
 
-    MedCond createNewMedCond(){ //Prompt user to enter information needed for med cond
+    MedCond createNewMedCond() { //Prompt user to enter information needed for med cond
         Scanner medScanner = new Scanner(System.in);
 
         System.out.println("Enter Name of MD Contact:");
@@ -53,16 +53,16 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             }
         } while (true);
 
-        if(input == 1){
+        if (input == 1) {
             algType = "None";
         }
-        if(input == 2){
+        if (input == 2) {
             algType = "Food";
         }
-        if(input == 3){
+        if (input == 3) {
             algType = "Medication";
         }
-        if(input == 4){
+        if (input == 4) {
             algType = "Other";
         }
 
@@ -83,19 +83,19 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             }
         } while (true);
         String illType = "";
-        if(input2 == 1){
+        if (input2 == 1) {
             illType = "None";
         }
-        if(input2 == 2){
+        if (input2 == 2) {
             illType = "Heart";
         }
-        if(input2 == 3){
+        if (input2 == 3) {
             illType = "Diabetes";
         }
-        if(input2 == 4){
+        if (input2 == 4) {
             illType = "Asthma";
         }
-        if(input2 == 5){
+        if (input2 == 5) {
             illType = "Other";
         }
 
@@ -103,7 +103,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         return medCondInfo;
     }
 
-    void createNewTravProf(){ //Prompt user to enter information needed for trav prof
+    void createNewTravProf() { //Prompt user to enter information needed for trav prof
         Scanner profScanner = new Scanner(System.in);
 
         System.out.println("Enter Traveler's First Name:");
@@ -122,13 +122,27 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         float tripCost = Float.parseFloat(profScanner.nextLine());
 
         System.out.println("Enter Travel Type:");
-        String travelType = profScanner.nextLine();
+        String inputtravelType = profScanner.nextLine();
+        while(!(inputtravelType.equals("Business") || inputtravelType.equals("Pleasure"))) {
+            System.out.println("Please enter \"Business\" or \"Pleasure\"");
+            inputtravelType = profScanner.nextLine();
+        }
+        String travelType = inputtravelType;
+
 
         System.out.println("Enter Payment Type:");
-        String paymentType = profScanner.nextLine();
+        String inputpaymentType = profScanner.nextLine();
+        while (!(inputpaymentType.equals("Credit") || inputpaymentType.equals("Check") || inputpaymentType.equals("Debit") || inputpaymentType.equals("Invoice"))) {
+            System.out.println("Please enter \"Credit\", \"Check\", \"Debit\", or \"Invoice\"");
+            inputpaymentType = profScanner.nextLine();
+        }
+
+        String paymentType = inputpaymentType;
 
         MedCond medCondInfo;
-        medCondInfo = createNewMedCond(); //Call create med cond function and store in MedCond object
+        medCondInfo =
+
+                createNewMedCond(); //Call create med cond function and store in MedCond object
 
         System.out.println("------------------------------------");
 
@@ -137,7 +151,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         db.insertNewProfile(newTravProf); //Create new trav prof and store in arraylist
     }
 
-    void deleteTravProf(){ //Delete a trav prof using last name and stored trav agent id
+    void deleteTravProf() { //Delete a trav prof using last name and stored trav agent id
         Scanner deleteScanner = new Scanner(System.in);
 
         System.out.println("Enter last name of profile");
@@ -147,7 +161,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("------------------------------------");
     }
 
-    void findTravProf(){ //Find a trav prof by last name
+    void findTravProf() { //Find a trav prof by last name
         Scanner findScanner = new Scanner(System.in);
 
         System.out.println("Enter last name of profile");
@@ -157,16 +171,16 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("------------------------------------");
     }
 
-    void updateTravProf(){ //Find a trav prof by last name and prompt user to choose which value to update
+    void updateTravProf() { //Find a trav prof by last name and prompt user to choose which value to update
         Scanner updateScanner = new Scanner(System.in);
         TravProf modifyProf = null;
 
         System.out.println("Enter last name of the profile you want to modify");
         String lastName = updateScanner.nextLine();
 
-        for(int i = 0; i < db.travelerList.size(); i++){
+        for (int i = 0; i < db.travelerList.size(); i++) {
             TravProf tempProf = db.travelerList.get(i);
-            if(tempProf.getLastName().equals(lastName)){
+            if (tempProf.getLastName().equals(lastName)) {
                 modifyProf = tempProf;
             }
         }
@@ -194,38 +208,38 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter updated value");
         String updatedValue = updateScanner.nextLine();
 
-        if(input == 1){
+        if (input == 1) {
             modifyProf.updateAddress(updatedValue);
         }
-        if(input == 2){
+        if (input == 2) {
             modifyProf.updatePhone(updatedValue);
         }
-        if(input == 3){
+        if (input == 3) {
             modifyProf.updateTravelType(updatedValue);
         }
-        if(input == 4){
+        if (input == 4) {
             float updatedValueFloat = Float.parseFloat(updatedValue);
             modifyProf.updateTripCost(updatedValueFloat);
         }
-        if(input == 5){
+        if (input == 5) {
             modifyProf.updatePaymentType(updatedValue);
         }
-        if(input == 6){
+        if (input == 6) {
             modifyProf.getMedCondInfo().updateMdContact(updatedValue);
         }
-        if(input == 7){
+        if (input == 7) {
             modifyProf.getMedCondInfo().updateMdPhone(updatedValue);
         }
-        if(input == 8){
+        if (input == 8) {
             modifyProf.getMedCondInfo().updateIllType(updatedValue);
         }
-        if(input == 9){
+        if (input == 9) {
             modifyProf.getMedCondInfo().updateAlgType(updatedValue);
         }
     }
 
-    void displayAllTravelProfiles(){ //Loop through array list and display each profile
-        for(int i = 0; i < db.travelerList.size(); i++){
+    void displayAllTravelProfiles() { //Loop through array list and display each profile
+        for (int i = 0; i < db.travelerList.size(); i++) {
             TravProf tempProf = db.travelerList.get(i);
             displayTravProf(tempProf);
         }
@@ -263,37 +277,37 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             }
         } while (true);
         System.out.println("------------------------------------");
-        if(input == 8){ //If exit, do so before asking for travel agent id
+        if (input == 8) { //If exit, do so before asking for travel agent id
             System.out.println("Exiting");
             return false;
         }
         System.out.println("Enter Travel Agent ID:"); //travel agent id required after every menu selection
         travAgentID = scan.nextLine();
-        if(input == 1){
+        if (input == 1) {
             createNewTravProf();
             return true;
         }
-        if(input == 2){
+        if (input == 2) {
             deleteTravProf();
             return true;
         }
-        if(input == 3){
+        if (input == 3) {
             findTravProf();
             return true;
         }
-        if(input == 4){
+        if (input == 4) {
             updateTravProf();
             return true;
         }
-        if(input == 5){
+        if (input == 5) {
             displayAllTravelProfiles();
             return true;
         }
-        if(input == 6){
+        if (input == 6) {
             writeToDB();
             return true;
         }
-        if(input == 7){
+        if (input == 7) {
             initDB();
             return true;
         }
@@ -305,7 +319,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         boolean state = true;
         TravProfInterface db = new TravProfInterface("test");
-        while(state){ //While getUserChoice() returns true, loop
+        while (state) { //While getUserChoice() returns true, loop
             state = db.getUserChoice();
         }
     }
