@@ -173,7 +173,10 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter last name of profile");
         String lastName = deleteScanner.nextLine();
 
-        db.deleteProfile(travAgentID, lastName);
+        boolean deleted = db.deleteProfile(travAgentID, lastName);
+        if(deleted){System.out.println("Successful profile deletion!");}else{
+            System.out.println("No such profile could be found");
+        }
         System.out.println("------------------------------------");
     }
 
@@ -183,7 +186,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter last name of profile");
         String lastName = findScanner.nextLine();
         if(db.findProfile(travAgentID, lastName) == null){
-            System.out.println("no profile found");}else{
+            System.out.println("No such profile could be found");}else{
         this.displayTravProf(db.findProfile(travAgentID, lastName));}
         System.out.println("------------------------------------");
     }
@@ -197,7 +200,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
 
         for (int i = 0; i < db.travelerList.size(); i++) {
             TravProf tempProf = db.travelerList.get(i);
-            if (tempProf.getLastName().equals(lastName)) {
+            if (tempProf.getLastName().equals(lastName) && tempProf.gettravAgentID().equals(travAgentID)) {
                 modifyProf = tempProf;
             }
         }
