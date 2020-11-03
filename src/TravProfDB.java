@@ -65,28 +65,6 @@ public class TravProfDB implements Serializable{
         return nextProf;
     }
 
-    /*public FileWriter writeAllTravProf(String fileName) throws IOException {
-        //needs to output a file with name fileName that has all traveler profiles
-        //in the travelerList
-        FileWriter dbFile.txt = new FileWriter(fileName);
-        for (int i = 0; i<this.openTravelerIndex; i++){
-            TravProf currentTrav = (TravProf) this.travelerList.get(i);
-            dbFile.txt.write("traveler ID: "+ currentTrav.gettravAgentID());
-            dbFile.txt.write("traveler Name: "+ currentTrav.getFirstName()+currentTrav.getLastName());
-            dbFile.txt.write("traveler Address: "+ currentTrav.getAddress());
-            dbFile.txt.write("traveler Phone: "+ currentTrav.getPhone());
-            dbFile.txt.write("traveler's Allergies: " + currentTrav.getMedCondInfo().getAlgType());
-            dbFile.txt.write("traveler's Illness: " + currentTrav.getMedCondInfo().getIllType());
-            dbFile.txt.write("traveler's Medical Contact: " + currentTrav.getMedCondInfo().getMdContact());
-            dbFile.txt.write("traveler's Medical Phone: "+ currentTrav.getMedCondInfo().getMdPhone() );
-            dbFile.txt.write("travel Type: "+ currentTrav.getTravelType());
-            dbFile.txt.write("trip Cost: " + Float.toString(currentTrav.getTripCost()));
-            dbFile.txt.write("payment Type: "+ currentTrav.getPaymentType());
-            dbFile.txt.write("----------------------------------");
-        }
-    return dbFile.txt;
-    }*/
-
     public void writeAllTravProf(String fileName) throws IOException{
         FileOutputStream outputStream = new FileOutputStream(fileName);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
