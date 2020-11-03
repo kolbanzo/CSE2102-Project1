@@ -38,7 +38,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
 
         String algType = "";
         int input;
-        do { //make sure input is an integer
+        do { //make sure input is an integer 1-4
             System.out.println("Select Allergy: ");
             System.out.println("(1) None");
             System.out.println("(2) Food");
@@ -46,17 +46,18 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             System.out.println("(4) Other");
             try {
                 input = Integer.parseInt(medScanner.nextLine());
-                if(input >= 1 && input < 5){
-                    break;}
-                else{
+                if (input >= 1 && input < 5) {
+                    break;
+                } else {//if it is an integer but it is not in the menu
                     System.out.println("Please enter a valid value.");
-                    continue;}
-            } catch (Exception e) {
+                    continue;
+                }
+            } catch (Exception e) {//if it is not an integer
                 System.out.println("Please enter a valid value.");
                 continue;
             }
         } while (true);
-
+        //use the inputted menu item integer to set the allergy type
         if (input == 1) {
             algType = "None";
         }
@@ -71,8 +72,8 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         }
 
         int input2;
-        do { //make sure input is an integer
-            System.out.println("Select Illness: "); //Menu with number selection?
+        do { //make sure input is an integer 1-5 like for the select allergy menu
+            System.out.println("Select Illness: ");
             System.out.println("(1) None");
             System.out.println("(2) Heart");
             System.out.println("(3) Diabetes");
@@ -80,11 +81,12 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             System.out.println("(5) Other");
             try {
                 input2 = Integer.parseInt(medScanner.nextLine());
-                if(input2 >= 1 && input2 < 6){
-                    break;}
-                else{
+                if (input2 >= 1 && input2 < 6) {
+                    break;
+                } else {
                     System.out.println("Please enter a valid value.");
-                    continue;}
+                    continue;
+                }
             } catch (Exception e) {
                 System.out.println("Please enter a valid value.");
                 continue;
@@ -127,19 +129,22 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         String phone = profScanner.nextLine();
 
         System.out.println("Enter Cost of Trip:");
+        //make sure that the input is a float! if not, prompt again.
         boolean goodCost = false;
         float tripCost = 0;
-        while (!(goodCost)){
-        try {
-            tripCost = Float.parseFloat(profScanner.nextLine());
-            goodCost = true;
-        }catch(Exception NumberFormatException){
-            System.out.println("Please enter a number for the trip cost.");
-        }}
+        while (!(goodCost)) {
+            try {
+                tripCost = Float.parseFloat(profScanner.nextLine());
+                goodCost = true;
+            } catch (Exception NumberFormatException) {
+                System.out.println("Please enter a number for the trip cost.");
+            }
+        }
 
         System.out.println("Enter Travel Type:");
         String inputtravelType = profScanner.nextLine();
-        while(!(inputtravelType.equals("Business") || inputtravelType.equals("Pleasure"))) {
+        //make sure that the inputted travel type is "Business" or "Pleasure", if not, prompt again
+        while (!(inputtravelType.equals("Business") || inputtravelType.equals("Pleasure"))) {
             System.out.println("Please enter \"Business\" or \"Pleasure\"");
             inputtravelType = profScanner.nextLine();
         }
@@ -148,6 +153,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
 
         System.out.println("Enter Payment Type:");
         String inputpaymentType = profScanner.nextLine();
+        //make sure that the inputted payment type is "Credit", "Check", "Debit", or "Invoice". If not, prompt again.
         while (!(inputpaymentType.equals("Credit") || inputpaymentType.equals("Check") || inputpaymentType.equals("Debit") || inputpaymentType.equals("Invoice"))) {
             System.out.println("Please enter \"Credit\", \"Check\", \"Debit\", or \"Invoice\"");
             inputpaymentType = profScanner.nextLine();
@@ -172,9 +178,11 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
 
         System.out.println("Enter last name of profile");
         String lastName = deleteScanner.nextLine();
-
+        //try to delete, and store the T/F value to tell the user if deletion worked or not
         boolean deleted = db.deleteProfile(travAgentID, lastName);
-        if(deleted){System.out.println("Successful profile deletion!");}else{
+        if (deleted) {
+            System.out.println("Successful profile deletion!");
+        } else {
             System.out.println("No such profile could be found");
         }
         System.out.println("------------------------------------");
@@ -185,9 +193,12 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
 
         System.out.println("Enter last name of profile");
         String lastName = findScanner.nextLine();
-        if(db.findProfile(travAgentID, lastName) == null){
-            System.out.println("No such profile could be found");}else{
-        this.displayTravProf(db.findProfile(travAgentID, lastName));}
+        //if no such profile is found under this agent, the found profile would be null. If it is null, tell the user that no profile was found.
+        if (db.findProfile(travAgentID, lastName) == null) {
+            System.out.println("No such profile could be found");
+        } else {//otherwise, we display the found profile.
+            this.displayTravProf(db.findProfile(travAgentID, lastName));
+        }
         System.out.println("------------------------------------");
     }
 
@@ -205,7 +216,8 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
                 break;
             }
         }
-        if(modifyProf == null){
+        //if there is no traveler profile under this agent with that last name, tell the user
+        if (modifyProf == null) {
             System.out.println("No such profile was found.");
             return;
         }
@@ -223,8 +235,13 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             System.out.println("(9) Allergy Type");
             try {
                 input = Integer.parseInt(updateScanner.nextLine());
-                break;
-            } catch (Exception e) {
+                if (input > 0 && input < 10) {
+                    break;
+                } else {
+                    System.out.println("Please enter a valid value.");
+                    continue;
+                }
+            } catch (Exception e) {//make sure that
                 System.out.println("Please enter a valid value.");
                 continue;
             }
@@ -257,14 +274,15 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             String updatedValue = updateScanner.nextLine();
             boolean goodUpdate = false;
             float updatedValueFloat = 0;
-            while (!(goodUpdate)){
+            while (!(goodUpdate)) {
                 try {
                     updatedValueFloat = Float.parseFloat(updatedValue);
                     goodUpdate = true;
-                }catch(Exception NumberFormatException){
+                } catch (Exception NumberFormatException) {
                     System.out.println("Please enter a number for the trip cost.");
                     updatedValue = updateScanner.nextLine();
-                }}
+                }
+            }
             modifyProf.updateTripCost(updatedValueFloat);
         }
         if (input == 5) {
@@ -298,11 +316,12 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
                 System.out.println("(5) Other");
                 try {
                     updateIllInput = Integer.parseInt(updateScanner.nextLine());
-                    if(updateIllInput >= 1 && updateIllInput < 6){
-                    break;}
-                    else{
+                    if (updateIllInput >= 1 && updateIllInput < 6) {
+                        break;
+                    } else {
                         System.out.println("Please enter a valid value.");
-                        continue;}
+                        continue;
+                    }
                 } catch (Exception e) {
                     System.out.println("Please enter a valid value.");
                     continue;
@@ -321,7 +340,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             if (updateIllInput == 4) {
                 updatedIll = "Asthma";
             }
-            if(updateIllInput == 5){
+            if (updateIllInput == 5) {
                 updatedIll = "Other";
             }
             modifyProf.getMedCondInfo().updateAlgType(updatedIll);
@@ -338,11 +357,12 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
                 System.out.println("(4) Other");
                 try {
                     updateAlgInput = Integer.parseInt(updateScanner.nextLine());
-                    if(updateAlgInput >= 1 && updateAlgInput < 5){
-                        break;}
-                    else{
+                    if (updateAlgInput >= 1 && updateAlgInput < 5) {
+                        break;
+                    } else {
                         System.out.println("Please enter a valid value.");
-                        continue;}
+                        continue;
+                    }
                 } catch (Exception e) {
                     System.out.println("Please enter a valid value.");
                     continue;
@@ -368,7 +388,9 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
     void displayAllTravelProfiles() { //Loop through array list and display each profile
         for (int i = 0; i < db.travelerList.size(); i++) {
             TravProf tempProf = db.travelerList.get(i);
-            if(tempProf.gettravAgentID().equals(travAgentID)){this.displayTravProf(tempProf);}
+            if (tempProf.gettravAgentID().equals(travAgentID)) {
+                this.displayTravProf(tempProf);
+            }
         }
     }
 
