@@ -233,23 +233,20 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             System.out.println("(7) MD Phone");
             System.out.println("(8) Illness Type");
             System.out.println("(9) Allergy Type");
-            try {
+            try {//make sure input is an integer
                 input = Integer.parseInt(updateScanner.nextLine());
-                if (input > 0 && input < 10) {
+                if (input > 0 && input < 10) {//make sure integer is menu item
                     break;
                 } else {
                     System.out.println("Please enter a valid value.");
                     continue;
                 }
-            } catch (Exception e) {//make sure that
+            } catch (Exception e) {
                 System.out.println("Please enter a valid value.");
                 continue;
             }
         } while (true);
-
-        //System.out.println("Enter updated value");
-        //String updatedValue = updateScanner.nextLine();
-
+        //for each menu item, we must prompt user input for updated values/attributes
         if (input == 1) {
             System.out.println("Enter updated address");
             String updatedValue = updateScanner.nextLine();
@@ -263,6 +260,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         if (input == 3) {
             System.out.println("Enter updated travel type");
             String updatedValue = updateScanner.nextLine();
+            //again, we check to make sure the input is proper
             while (!(updatedValue.equals("Business") || updatedValue.equals("Pleasure"))) {
                 System.out.println("Please enter \"Business\" or \"Pleasure\"");
                 updatedValue = updateScanner.nextLine();
@@ -272,6 +270,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         if (input == 4) {
             System.out.println("Enter updated trip cost");
             String updatedValue = updateScanner.nextLine();
+            //We make sure the updated value is a valid trip cost
             boolean goodUpdate = false;
             float updatedValueFloat = 0;
             while (!(goodUpdate)) {
@@ -288,6 +287,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         if (input == 5) {
             System.out.println("Enter updated payment type");
             String updatedValue = updateScanner.nextLine();
+            //We make sure the inputted value is a valid payment type
             while (!(updatedValue.equals("Credit") || updatedValue.equals("Check") || updatedValue.equals("Debit") || updatedValue.equals("Invoice"))) {
                 System.out.println("Please enter \"Credit\", \"Check\", \"Debit\", or \"Invoice\"");
                 updatedValue = updateScanner.nextLine();
@@ -300,7 +300,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             modifyProf.getMedCondInfo().updateMdContact(updatedValue);
         }
         if (input == 7) {
-            System.out.println("Enter MD Phone");
+            System.out.println("Enter updated MD Phone");
             String updatedValue = updateScanner.nextLine();
             modifyProf.getMedCondInfo().updateMdPhone(updatedValue);
         }
@@ -349,17 +349,17 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         if (input == 9) {
             String updatedAlg = "";
             int updateAlgInput;
-            do { //make sure input is an integer
+            do {
                 System.out.println("Select Allergy: ");
                 System.out.println("(1) None");
                 System.out.println("(2) Food");
                 System.out.println("(3) Medication");
                 System.out.println("(4) Other");
-                try {
+                try {//make sure input is an integer
                     updateAlgInput = Integer.parseInt(updateScanner.nextLine());
                     if (updateAlgInput >= 1 && updateAlgInput < 5) {
                         break;
-                    } else {
+                    } else {//make sure integer is a menu option
                         System.out.println("Please enter a valid value.");
                         continue;
                     }
