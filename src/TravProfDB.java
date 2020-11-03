@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class TravProfDB implements Serializable{
 
     public int numTravelers; //how many travelers are in DB
-    public int openTravelerIndex; //gives position in travelerList of next open spot
     public String fileName; //name of DB
     public ArrayList<TravProf> travelerList; //array of all profiles in DB
     public int currentTravelerIndex; //used as an iterator
@@ -14,7 +13,6 @@ public class TravProfDB implements Serializable{
         this.fileName = fileName;
         this.numTravelers = 0;
         this.travelerList = new ArrayList<TravProf>();
-        this.openTravelerIndex = 0;
         this.currentTravelerIndex = 0;
     }
 
