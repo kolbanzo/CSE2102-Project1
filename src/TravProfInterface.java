@@ -202,10 +202,12 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             TravProf tempProf = db.travelerList.get(i);
             if (tempProf.getLastName().equals(lastName) && tempProf.gettravAgentID().equals(travAgentID)) {
                 modifyProf = tempProf;
-            }else{if(i == db.travelerList.size()-1){
-                System.out.println("No such profile found.");
-                return;
-            }}
+                break;
+            }
+        }
+        if(modifyProf == null){
+            System.out.println("No such profile was found.");
+            return;
         }
         int input;
         System.out.println("Select which attribute you would like to modify: ");
