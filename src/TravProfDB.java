@@ -65,17 +65,20 @@ public class TravProfDB implements Serializable{
         return nextProf;
     }
 
+    //Write all profiles stored in local db to file db
     public void writeAllTravProf(String fileName) throws IOException{
         FileOutputStream outputStream = new FileOutputStream(fileName);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
-        objectOutputStream.writeObject(travelerList);
-        objectOutputStream.close();
+        objectOutputStream.writeObject(travelerList); //Write entire arraylist to file
+        objectOutputStream.close(); //Close output stream
     }
 
+    //Retrieve all profiles from file database into local arraylist
     public void initializeDataBase(String fileName) throws IOException, ClassNotFoundException {
         FileInputStream inputStream = new FileInputStream(fileName);
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+        //Cast input stream to ArrayList<TravProf> and read object into arraylist
         this.travelerList = (ArrayList<TravProf>)objectInputStream.readObject();
     }
 }
