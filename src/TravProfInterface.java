@@ -153,7 +153,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter last name of profile");
         String lastName = findScanner.nextLine();
 
-        db.findProfile(travAgentID, lastName);
+        this.displayTravProf(db.findProfile(travAgentID, lastName));
         System.out.println("------------------------------------");
     }
 

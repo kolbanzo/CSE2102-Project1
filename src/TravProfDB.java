@@ -41,7 +41,7 @@ public class TravProfDB implements Serializable{
     //findProfile will search for an ID and last name and return a profile
     public TravProf findProfile(String travID, String lastName){
         int j = 0;
-        for(int i=0; i<this.openTravelerIndex;i++){
+        for(int i=0; i<this.travelerList.size();i++){
             TravProf searchCandidate  = this.travelerList.get(i);
             if(searchCandidate.gettravAgentID().equals(travID) && searchCandidate.getLastName().equals(lastName)){
                 j=i;
