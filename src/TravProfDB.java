@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class TravProfDB implements Serializable{
 
@@ -38,7 +39,7 @@ public class TravProfDB implements Serializable{
 
     //findProfile will search for an ID and last name and return a profile
     public TravProf findProfile(String travID, String lastName){
-        int j = 0;
+        int j = -1;
         for(int i=0; i<this.travelerList.size();i++){
             TravProf searchCandidate  = this.travelerList.get(i);
             if(searchCandidate.gettravAgentID().equals(travID) && searchCandidate.getLastName().equals(lastName)){
@@ -46,6 +47,7 @@ public class TravProfDB implements Serializable{
                 break;
             }
         }
+        if(j == -1){return null;}
         return this.travelerList.get(j);
     }
 

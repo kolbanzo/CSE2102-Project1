@@ -46,7 +46,11 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             System.out.println("(4) Other");
             try {
                 input = Integer.parseInt(medScanner.nextLine());
-                break;
+                if(input >= 1 && input < 5){
+                    break;}
+                else{
+                    System.out.println("Please enter a valid value.");
+                    continue;}
             } catch (Exception e) {
                 System.out.println("Please enter a valid value.");
                 continue;
@@ -76,7 +80,11 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             System.out.println("(5) Other");
             try {
                 input2 = Integer.parseInt(medScanner.nextLine());
-                break;
+                if(input2 >= 1 && input2 < 6){
+                    break;}
+                else{
+                    System.out.println("Please enter a valid value.");
+                    continue;}
             } catch (Exception e) {
                 System.out.println("Please enter a valid value.");
                 continue;
@@ -119,7 +127,15 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         String phone = profScanner.nextLine();
 
         System.out.println("Enter Cost of Trip:");
-        float tripCost = Float.parseFloat(profScanner.nextLine());
+        boolean goodCost = false;
+        float tripCost = 0;
+        while (!(goodCost)){
+        try {
+            tripCost = Float.parseFloat(profScanner.nextLine());
+            goodCost = true;
+        }catch(Exception NumberFormatException){
+            System.out.println("Please enter a number for the trip cost.");
+        }}
 
         System.out.println("Enter Travel Type:");
         String inputtravelType = profScanner.nextLine();
@@ -157,7 +173,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
         System.out.println("Enter last name of profile");
         String lastName = deleteScanner.nextLine();
 
-        db.deleteProfile(lastName, travAgentID);
+        db.deleteProfile(travAgentID, lastName);
         System.out.println("------------------------------------");
     }
 
@@ -166,8 +182,9 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
 
         System.out.println("Enter last name of profile");
         String lastName = findScanner.nextLine();
-
-        this.displayTravProf(db.findProfile(travAgentID, lastName));
+        if(db.findProfile(travAgentID, lastName) == null){
+            System.out.println("no profile found");}else{
+        this.displayTravProf(db.findProfile(travAgentID, lastName));}
         System.out.println("------------------------------------");
     }
 
@@ -205,43 +222,145 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             }
         } while (true);
 
-        System.out.println("Enter updated value");
-        String updatedValue = updateScanner.nextLine();
+        //System.out.println("Enter updated value");
+        //String updatedValue = updateScanner.nextLine();
 
         if (input == 1) {
+            System.out.println("Enter updated address");
+            String updatedValue = updateScanner.nextLine();
             modifyProf.updateAddress(updatedValue);
         }
         if (input == 2) {
+            System.out.println("Enter updated phone");
+            String updatedValue = updateScanner.nextLine();
             modifyProf.updatePhone(updatedValue);
         }
         if (input == 3) {
+            System.out.println("Enter updated travel type");
+            String updatedValue = updateScanner.nextLine();
+            while (!(updatedValue.equals("Business") || updatedValue.equals("Pleasure"))) {
+                System.out.println("Please enter \"Business\" or \"Pleasure\"");
+                updatedValue = updateScanner.nextLine();
+            }
             modifyProf.updateTravelType(updatedValue);
         }
         if (input == 4) {
-            float updatedValueFloat = Float.parseFloat(updatedValue);
+            System.out.println("Enter updated trip cost");
+            String updatedValue = updateScanner.nextLine();
+            boolean goodUpdate = false;
+            float updatedValueFloat = 0;
+            while (!(goodUpdate)){
+                try {
+                    updatedValueFloat = Float.parseFloat(updatedValue);
+                    goodUpdate = true;
+                }catch(Exception NumberFormatException){
+                    System.out.println("Please enter a number for the trip cost.");
+                    updatedValue = updateScanner.nextLine();
+                }}
             modifyProf.updateTripCost(updatedValueFloat);
         }
         if (input == 5) {
+            System.out.println("Enter updated payment type");
+            String updatedValue = updateScanner.nextLine();
+            while (!(updatedValue.equals("Credit") || updatedValue.equals("Check") || updatedValue.equals("Debit") || updatedValue.equals("Invoice"))) {
+                System.out.println("Please enter \"Credit\", \"Check\", \"Debit\", or \"Invoice\"");
+                updatedValue = updateScanner.nextLine();
+            }
             modifyProf.updatePaymentType(updatedValue);
         }
         if (input == 6) {
+            System.out.println("Enter updated MD Contact");
+            String updatedValue = updateScanner.nextLine();
             modifyProf.getMedCondInfo().updateMdContact(updatedValue);
         }
         if (input == 7) {
+            System.out.println("Enter MD Phone");
+            String updatedValue = updateScanner.nextLine();
             modifyProf.getMedCondInfo().updateMdPhone(updatedValue);
         }
         if (input == 8) {
-            modifyProf.getMedCondInfo().updateIllType(updatedValue);
+            String updatedIll = "";
+            int updateIllInput;
+            do { //make sure input is an integer
+                System.out.println("Select Illness:");
+                System.out.println("(1) None");
+                System.out.println("(2) Heart");
+                System.out.println("(3) Diabetes");
+                System.out.println("(4) Asthma");
+                System.out.println("(5) Other");
+                try {
+                    updateIllInput = Integer.parseInt(updateScanner.nextLine());
+                    if(updateIllInput >= 1 && updateIllInput < 6){
+                    break;}
+                    else{
+                        System.out.println("Please enter a valid value.");
+                        continue;}
+                } catch (Exception e) {
+                    System.out.println("Please enter a valid value.");
+                    continue;
+                }
+            } while (true);
+
+            if (updateIllInput == 1) {
+                updatedIll = "None";
+            }
+            if (updateIllInput == 2) {
+                updatedIll = "Heart";
+            }
+            if (updateIllInput == 3) {
+                updatedIll = "Diabetes";
+            }
+            if (updateIllInput == 4) {
+                updatedIll = "Asthma";
+            }
+            if(updateIllInput == 5){
+                updatedIll = "Other";
+            }
+            modifyProf.getMedCondInfo().updateAlgType(updatedIll);
         }
+
         if (input == 9) {
-            modifyProf.getMedCondInfo().updateAlgType(updatedValue);
+            String updatedAlg = "";
+            int updateAlgInput;
+            do { //make sure input is an integer
+                System.out.println("Select Allergy: ");
+                System.out.println("(1) None");
+                System.out.println("(2) Food");
+                System.out.println("(3) Medication");
+                System.out.println("(4) Other");
+                try {
+                    updateAlgInput = Integer.parseInt(updateScanner.nextLine());
+                    if(updateAlgInput >= 1 && updateAlgInput < 5){
+                        break;}
+                    else{
+                        System.out.println("Please enter a valid value.");
+                        continue;}
+                } catch (Exception e) {
+                    System.out.println("Please enter a valid value.");
+                    continue;
+                }
+            } while (true);
+
+            if (updateAlgInput == 1) {
+                updatedAlg = "None";
+            }
+            if (updateAlgInput == 2) {
+                updatedAlg = "Food";
+            }
+            if (updateAlgInput == 3) {
+                updatedAlg = "Medication";
+            }
+            if (updateAlgInput == 4) {
+                updatedAlg = "Other";
+            }
+            modifyProf.getMedCondInfo().updateAlgType(updatedAlg);
         }
     }
 
     void displayAllTravelProfiles() { //Loop through array list and display each profile
         for (int i = 0; i < db.travelerList.size(); i++) {
             TravProf tempProf = db.travelerList.get(i);
-            displayTravProf(tempProf);
+            if(tempProf.gettravAgentID().equals(travAgentID)){this.displayTravProf(tempProf);}
         }
     }
 
