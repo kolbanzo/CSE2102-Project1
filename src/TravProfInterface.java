@@ -343,7 +343,7 @@ public class TravProfInterface { //Should we handle multiple profiles with the s
             if (updateIllInput == 5) {
                 updatedIll = "Other";
             }
-            modifyProf.getMedCondInfo().updateAlgType(updatedIll);
+            modifyProf.getMedCondInfo().updateIllType(updatedIll);
         }
 
         if (input == 9) {
