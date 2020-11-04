@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 public class TravProfDB implements Serializable{
 
