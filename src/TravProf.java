@@ -1,9 +1,11 @@
 import java.io.Serializable;
 
 public class TravProf implements Serializable {
+    //declare all attributes
     private String travAgentID, firstName, lastName, address, phone, travelType, paymentType;
     private float tripCost;
     private MedCond medCondInfo;
+    //constructor
     public TravProf(String travAgentID, String firstName, String lastName, String address, String phone,
                     float tripCost, String travelType, String paymentType, MedCond medCondInfo){
         this.travAgentID = travAgentID;
@@ -16,18 +18,19 @@ public class TravProf implements Serializable {
         this.paymentType = paymentType;
         this.medCondInfo = medCondInfo;
     }
-
+    //all functions in this class are simple updates or attribute retrievals.
+    //note that updateFirstName and updateLastName are private because the interface cannot modify these attributes (in specification)
     public String gettravAgentID() { return travAgentID; }
     public String getFirstName() {
         return firstName;
     }
-    public void updateFirstName(String firstName) {
+    private void updateFirstName(String firstName) {
         this.firstName = firstName;
     }
     public String getLastName() {
         return lastName;
     }
-    public void updateLastName(String lastName) {
+    private void updateLastName(String lastName) {
         this.lastName = lastName;
     }
     public String getAddress() {
